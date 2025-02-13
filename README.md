@@ -81,8 +81,11 @@ It allows users to strengthen their bonds in their community allowing them to co
 ### Mockups
 
 ![Screenshot of Main page ](./assets/images/Main%20Page.png)
+
 ![Screenshot of Events page ](./assets/images/Events%20Page.png)
+
 ![Screenshot of Event Details page ](./assets/images/Event%20details%20Page.png)
+
 ![Screenshot of Create Event page ](./assets/images/Create%20Event%20Page.png)
 
 ### Data
