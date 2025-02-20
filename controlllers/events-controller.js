@@ -19,6 +19,24 @@ async function getEvents(_req, res) {
   }
 }
 
+async function getEvent(req, res) {
+  const { id } = req.params;
+  try {
+    const data = await knex("events")
+      .join("event_images", "events.id", "event_images.id")
+      .where({ "events.id": id })
+      .first();
+    if (data.length === 0) {
+      return res.status(404).json({ message: `No event with id ${id} found` });
+    }
+    res.status(200).json(data);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: `Error fetching event details with id ${id}` });
+  }
+}
+
 async function getFeaturedEvents(_req, res) {
   try {
     const data = await knex("events")
@@ -81,4 +99,4 @@ async function postEvent(req, res) {
   }
 }
 
-export { getEvents, getFeaturedEvents, postEvent };
+export { getEvents, getFeaturedEvents, getEvent, postEvent };
