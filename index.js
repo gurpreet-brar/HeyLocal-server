@@ -9,6 +9,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/events", eventsRoute);
+app.use("/images", imageRoute);
 
 app.listen(PORT, () => {
   console.log(`running at http://localhost:${PORT}`);

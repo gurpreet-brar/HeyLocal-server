@@ -48,7 +48,19 @@ async function postEvent(req, res) {
       total_spots,
       chat_link,
     } = req.body;
-    console.log(req.body);
+    if (
+      !title ||
+      !description ||
+      !category ||
+      !location ||
+      !date ||
+      !time ||
+      !duration ||
+      !total_spots ||
+      !chat_link
+    ) {
+      res.status(400).json({ message: "All fields are required" });
+    }
     const event_id = await knex("events").insert({
       title,
       description,
@@ -60,11 +72,9 @@ async function postEvent(req, res) {
       total_spots,
       chat_link,
     });
-    console.log(event_id);
     const event = await knex("events")
       .where({ "events.id": event_id[0] })
       .first();
-    console.log(event);
     res.status(201).json(event);
   } catch (error) {
     res.status(500).json({ message: `Error adding event: ${error}` });
