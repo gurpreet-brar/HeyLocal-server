@@ -3,14 +3,17 @@ export function up(knex) {
     table.increments("id").primary();
     table.string("title").notNullable();
     table.text("description", "longtext").notNullable();
+    table.string("category").notNullable();
     table.string("location").notNullable();
     table.date("date").notNullable();
     table.time("time").notNullable();
     table.integer("duration").notNullable();
     table.integer("total_spots").notNullable();
+    table.boolean("featured").notNullable().defaultTo(true);
     table
       .integer("organizer_id")
       .unsigned()
+      .defaultTo(1)
       .references("users.id")
       .onUpdate("CASCADE")
       .onDelete("CASCADE");
