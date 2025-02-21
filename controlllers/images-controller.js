@@ -8,7 +8,7 @@ async function postImage(req, res) {
     const { event_id, image_url } = req.body;
     console.log(req.body);
     if (!event_id || !image_url) {
-      res.status(400).json({ message: "All fields are required" });
+      return res.status(400).json({ message: "All fields are required" });
     }
     const response = await knex("event_images").insert({ event_id, image_url });
     const data = await knex("event_images").where({ id: response[0] }).first();

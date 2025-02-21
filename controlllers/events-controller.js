@@ -17,10 +17,6 @@ async function getEvents(req, res) {
         .join("event_images", "events.id", "event_images.event_id")
         .where("events.category", "like", `%${category}%`);
     }
-
-    if (data.length === 0) {
-      return res.status(404).json({ message: `No events found` });
-    }
     res.status(200).json(data);
   } catch (error) {
     res.status(500).json({ message: `Error fetching events data: ${error}` });
