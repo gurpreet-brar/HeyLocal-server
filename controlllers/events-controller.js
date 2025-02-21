@@ -3,13 +3,21 @@ import configuration from "../knexfile.js";
 
 const knex = knexinit(configuration);
 
-async function getEvents(_req, res) {
+async function getEvents(req, res) {
   try {
-    const data = await knex("events").join(
+    const category = req.query.category;
+
+    let data = await knex("events").join(
       "event_images",
       "events.id",
       "event_images.event_id"
     );
+    if (category) {
+      data = await knex("events")
+        .join("event_images", "events.id", "event_images.event_id")
+        .where("events.category", "like", `%${category}%`);
+    }
+
     if (data.length === 0) {
       return res.status(404).json({ message: `No events found` });
     }
@@ -21,6 +29,7 @@ async function getEvents(_req, res) {
 
 async function getEvent(req, res) {
   const { id } = req.params;
+
   try {
     const data = await knex("events")
       .join("event_images", "events.id", "event_images.id")
